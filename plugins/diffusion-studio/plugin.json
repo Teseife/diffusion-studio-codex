@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "diffusion-studio",
+  "version": "0.1.2",
+  "description": "Create, edit, inspect, and preview local video projects with Diffusion Studio.",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "editing",
+    "diffusion-studio",
+    "captions",
+    "motion-graphics"
+  ],
+  "author": {
+    "name": "Thomas Seife"
+  }
+}

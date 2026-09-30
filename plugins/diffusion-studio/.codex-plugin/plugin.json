@@ -1,0 +1,26 @@
+{
+  "name": "diffusion-studio",
+  "version": "0.1.2",
+  "description": "Create, edit, inspect, and preview local video projects with Diffusion Studio.",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Diffusion Studio",
+    "shortDescription": "Edit with Diffusion Studio",
+    "longDescription": "An independent integration for the Diffusion Studio desktop app. Create and edit local video projects, inspect footage, add captions, verify compositions, and export when requested. Requires Diffusion Studio to be installed and running on the same computer as Codex; install its dapi CLI through Settings \u2192 MCP & CLI for shell workflows. Media generation and analysis may use services configured in Diffusion Studio. This independent integration is not affiliated with or endorsed by Diffusion Studio or OpenAI.",
+    "developerName": "Thomas Seife",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Check my Diffusion Studio connection and explain what I can do with it.",
+      "Create a five-second title card in a new Diffusion Studio project and show me a preview.",
+      "Edit my footage in Diffusion Studio and add readable captions."
+    ],
+    "brandColor": "#276B75",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg"
+  }
+}
