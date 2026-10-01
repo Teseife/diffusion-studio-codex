@@ -1,65 +1,35 @@
 # Diffusion Studio for Codex
 
-An independent Codex plugin for creating, editing, inspecting, and previewing video projects with the Diffusion Studio desktop app.
+Create and edit video projects from Codex, preview your work, and continue editing in Diffusion Studio.
 
-This is a private development repository. GitHub access is required to clone or install from it. The plugin has not been approved in the OpenAI public plugin directory and is not affiliated with Diffusion Studio or OpenAI.
+## Demo
 
-![Diffusion Studio plugin page in the Codex desktop app](./docs/images/codex-plugin-preview.png)
+[![Watch the Diffusion Studio plugin demo](./docs/images/launch-demo.jpg)](./docs/videos/Diffusion-Studio-Plugin-Launch-v2.mp4?raw=1)
 
-The screenshot shows the maintainer's personal installation with the official Diffusion Studio logo. This repository's plugin package uses an independent icon; its connection and editing workflow are the same.
+[Watch the 76-second video](./docs/videos/Diffusion-Studio-Plugin-Launch-v2.mp4?raw=1) — installation, a prompt in Codex, preview playback, and the editable Diffusion Studio timeline.
 
-## Where it runs
+See the [demo guide](./docs/demo.md) for the workflow shown in the video.
 
-```text
-Codex on your computer → Diffusion Studio's local MCP server → editor
-         ↘ local project source files ↗
-```
+## What you can do
 
-Diffusion Studio serves its own MCP endpoint at `http://127.0.0.1:3274/mcp`. Codex connects to that endpoint and edits the local project source. Each user runs their own editor and server. This repository distributes the plugin; GitHub does not run the editing server, and this plugin has no hosted backend.
+- Create title cards, motion graphics, and short videos from a prompt.
+- Edit footage and arrange scenes in a local project.
+- Add readable captions.
+- Check a composition and capture previews.
+- Export a finished video when you're ready.
 
-The plugin does not itself upload footage to GitHub. Diffusion Studio's optional generation and analysis features may use services configured in the app. See that app's settings and policies for those features.
+## Before you start
 
-## Requirements
+- Install a local [Codex client](https://developers.openai.com/codex/cli) with plugin support and terminal/file access.
+- Install and open [Diffusion Studio](https://www.diffusion.studio/download) on the same computer.
+- In Diffusion Studio, go to **Settings → MCP & CLI** and install `dapi` for terminal workflows.
 
-- A local Codex client with plugin support, terminal access, and file access.
-- [Diffusion Studio](https://www.diffusion.studio/download) installed and running on the same computer.
-- The app's `dapi` CLI for launch and shell workflows; install it through Settings → MCP & CLI.
-- Python 3 for the optional connection diagnostic.
+While this repository is private, your GitHub account needs repository access to install it.
 
-macOS was tested. Windows is not yet verified. A remote cloud executor cannot reach your computer's loopback address.
+## Install
 
-## Install manually
-
-1. Install and open [Diffusion Studio](https://www.diffusion.studio/download).
-2. In Diffusion Studio, open **Settings → MCP & CLI** and install `dapi` for shell workflows. Keep the app running.
-3. Make sure the `codex` command is available in your terminal. If it is missing, follow the [official Codex CLI setup](https://developers.openai.com/codex/cli).
-4. Authenticate Git access to this private repository. Your GitHub account must own the repository or have collaborator access. A private repository URL alone does not grant access. Use your existing Git credential helper or authenticated SSH setup; do not put a GitHub token into the plugin's files.
-5. Add the marketplace and install the plugin:
-
-```sh
-codex plugin marketplace add Teseife/diffusion-studio-codex --ref main
-codex plugin add diffusion-studio@diffusion-studio-community
-```
-
-6. Confirm installation:
-
-```sh
-codex plugin list --marketplace diffusion-studio-community --json
-```
-
-The installed entry should identify `diffusion-studio@diffusion-studio-community` and report `enabled: true`.
-
-7. Start a new Codex chat. If the plugin does not appear immediately in the desktop app, reopen the Plugins view or restart Codex after saving any active work. Find Diffusion Studio under the community marketplace and use **Try now** or select the plugin in a new chat. Keep the editor running.
-
-Try:
-
-> Check my Diffusion Studio connection and explain what I can do with it.
-
-> Create a five-second title card in a new project and show me a preview.
-
-### Alternative: install from a local download or clone
-
-If the direct Git marketplace command cannot authenticate, clone the repository with your existing Git credentials first:
+1. Keep Diffusion Studio open and make sure `codex` is available in your terminal.
+2. Clone the repository, register its marketplace, and install the plugin:
 
 ```sh
 git clone https://github.com/Teseife/diffusion-studio-codex.git
@@ -68,95 +38,110 @@ codex plugin marketplace add .
 codex plugin add diffusion-studio@diffusion-studio-community
 ```
 
-Alternatively, download the repository ZIP from GitHub while signed in, extract it, open a terminal in the extracted folder, and run the last two commands. Keep that extracted folder: the registered local marketplace points to it. A ZIP checkout does not automatically fetch GitHub updates.
+3. Start a new Codex chat. In **Plugins**, search for `diff`, open **Diffusion Studio**, and choose **Try now** or select the plugin in your chat.
 
-## Install with an agent
+Keep the cloned folder in place: Codex uses it as the local marketplace source. If the plugin doesn't appear, reopen the Plugins view or restart Codex after saving your work.
 
-Open a local Codex chat with terminal/file access on the computer running Diffusion Studio. Copy and paste:
+<details>
+<summary>Alternative: install directly from GitHub</summary>
 
-```text
-Install the independent Diffusion Studio plugin from the private GitHub
-repository Teseife/diffusion-studio-codex on this computer.
-
-Use my existing GitHub/Git authentication. Check whether Diffusion Studio
-and its dapi CLI are installed. If dapi is present, start the editor with
-`dapi open --background` without creating a project. If the editor is
-missing, tell me how to install it and resume once it is available.
-
-Check existing marketplaces/plugins first. Add the Git marketplace with:
-`codex plugin marketplace add Teseife/diffusion-studio-codex --ref main`
-and install:
-`codex plugin add diffusion-studio@diffusion-studio-community`.
-If already installed, refresh that marketplace and install the current version.
-
-If Git cannot access the private repository, explain the access/authentication
-problem. Do not request a token in chat or change repository visibility.
-An authenticated local clone or extracted GitHub ZIP can be registered instead.
-
-Verify the plugin is installed and enabled, then run its bundled read-only
-connection diagnostic from the actual installed or checkout path. Report the
-result and remind me to start a new chat to load the plugin tools. Keep my
-existing projects and other plugin settings unchanged. Do not generate paid
-media, export a video, or publish a GitHub issue as part of this install check.
-```
-
-An agent cannot grant itself access to the private repository. Complete any GitHub sign-in or collaborator access step yourself if needed. After installation, use a new chat to test the native plugin tools:
-
-```text
-Use Diffusion Studio to check my editor connection and create a five-second
-title card in a new project. Show a captured preview without exporting a video.
-```
-
-## Install this local checkout
-
-From the repository root:
+With authenticated Git access, you can register the GitHub marketplace without a manual clone:
 
 ```sh
-codex plugin marketplace add .
+codex plugin marketplace add Teseife/diffusion-studio-codex --ref main
 codex plugin add diffusion-studio@diffusion-studio-community
 ```
 
-The community marketplace has a different identity from the personal `diffusion-studio-local` marketplace. If you already use the personal version, enable one copy at a time to avoid duplicate skills and tools.
+</details>
 
-## Diagnose a connection
+<details>
+<summary>Ask Codex to help install the plugin</summary>
 
-From the repository root:
+Use a local Codex chat on the computer running Diffusion Studio:
 
-```sh
-python3 plugins/diffusion-studio/scripts/doctor.py
+```text
+Help me install the Diffusion Studio plugin from
+Teseife/diffusion-studio-codex on this computer.
+
+Check existing installations first and use my existing Git authentication.
+Register the diffusion-studio-community marketplace and install
+diffusion-studio@diffusion-studio-community. Check that the plugin is
+enabled and run its bundled connection diagnostic. Explain any missing
+dependencies or repository-access problems. Preserve my existing projects.
 ```
 
-The diagnostic checks the CLI, MCP handshake, tool discovery, and a read-only context request. A ready connection reports `mcpReady: true`. It does not open projects, generate assets, export files, or file public issues.
+Start a new chat after installation to load the plugin's tools.
 
-If the app is stopped, launch it. If the plugin is newly installed, open a new chat. Check Settings → MCP & CLI if the server remains unavailable.
+</details>
 
-## Updates
+## Make your first video
 
-The maintainer increments the plugin version and publishes the updated repository contents. Installed users refresh the Git marketplace and install the current package:
+First, ask Codex:
+
+> Check my Diffusion Studio connection and explain what I can do with it.
+
+Then try the prompt from the demo:
+
+> Create a short animated video showcasing this plugin's capabilities: create and edit video, add captions, preview, and export. Use kinetic typography and show me a preview.
+
+Review the preview, ask for changes, and open the project in Diffusion Studio to work with its canvas and timeline. When you're happy with the result, ask Codex to export the video.
+
+## More example prompts
+
+> Create a five-second title card in a new project that says "Made with Diffusion Studio." Show me a preview.
+
+> Edit this footage into a short video and add readable captions.
+
+> Make the title orange, tighten the pacing, and show me the updated preview.
+
+> Export the current composition as a 1080p MP4.
+
+## Update
+
+For the local clone installation, run these commands inside the cloned repository:
+
+```sh
+git pull --ff-only
+codex plugin add diffusion-studio@diffusion-studio-community
+```
+
+For the direct GitHub marketplace installation:
 
 ```sh
 codex plugin marketplace upgrade diffusion-studio-community
 codex plugin add diffusion-studio@diffusion-studio-community
 ```
 
-Open a new chat to load the refreshed files.
+Start a new Codex chat after updating.
 
-## Package contents
+## Troubleshooting
 
-- `.agents/plugins/marketplace.json`: community marketplace catalog.
-- `plugins/diffusion-studio/plugin.json`: portable Agent Plugins manifest.
-- `plugins/diffusion-studio/mcp.json`: portable Streamable HTTP declaration.
-- `plugins/diffusion-studio/.codex-plugin/plugin.json` and `.mcp.json`: Codex compatibility and presentation metadata.
-- `plugins/diffusion-studio/skills/diffusion-edit/SKILL.md`: editing workflow, reading the reference shipped with the installed editor.
-- `plugins/diffusion-studio/scripts/doctor.py`: read-only diagnostic.
-- `plugins/diffusion-studio/assets/icon.svg`: original independent icon.
+**Plugin missing?** Check the installation:
 
-## Branding and license
+```sh
+codex plugin list --marketplace diffusion-studio-community --json
+```
 
-Original plugin code, instructions, and the independent icon are MIT licensed. Diffusion Studio remains a separate dependency with its own license and terms. The supplied screenshot depicts Diffusion Studio branding, which is not licensed by this project's MIT license. No official logo asset is bundled into the installable plugin. No app binary, upstream skills, footage, account credentials, or private project data is included.
+Look for `diffusion-studio@diffusion-studio-community` with `enabled: true`, then open a new chat.
 
-A personal installation may use a user-selected official icon. A public release using official branding is subject to confirming permission separately.
+**Editor connection unavailable?** Open Diffusion Studio and check **Settings → MCP & CLI**. From the cloned repository, run the optional diagnostic with Python 3:
 
-See [validation and limitations](./VALIDATION.md) and [release notes](./CHANGELOG.md).
+```sh
+python3 plugins/diffusion-studio/scripts/doctor.py
+```
 
-References: [Diffusion Studio](https://github.com/diffusionstudio/editor), [Codex plugin packaging and Git marketplaces](https://developers.openai.com/plugins/build/plugins), [MCP deployment requirements](https://developers.openai.com/plugins/build/mcp-server).
+A ready connection reports `mcpReady: true`.
+
+**Clone or download fails?** Sign in to GitHub with an account that has repository access. You can also download the repository ZIP while signed in, extract it, and run the two `codex plugin` install commands from that folder. Keep the extracted folder in place; download a fresh copy when updating a ZIP installation.
+
+**Duplicate Diffusion Studio entries?** If you also have the personal `diffusion-studio-local` version installed, enable one copy at a time.
+
+## Details and clarifications
+
+- This is an independent community plugin, unaffiliated with Diffusion Studio or OpenAI. It isn't listed in the OpenAI public plugin directory.
+- Codex connects to Diffusion Studio's local MCP server at `http://127.0.0.1:3274/mcp`. Use local Codex execution on the computer running the editor; cloud execution cannot reach that local address.
+- macOS has been tested. Windows support has not been verified. Optional generation and analysis features use the services configured in Diffusion Studio.
+- The demo combines recreated GitHub, terminal, and Codex interactions with real Diffusion Studio project output and an editor capture.
+- Plugin code and the independent plugin icon are [MIT licensed](./LICENSE). Diffusion Studio is a separate dependency with its own terms; third-party branding in the demo and screenshots is not covered by this project's MIT license.
+
+See [validation and limitations](./VALIDATION.md), [release notes](./CHANGELOG.md), and the [plugin package guide](./plugins/diffusion-studio/README.md).
