@@ -1,8 +1,10 @@
 # Plugin launch demo
 
-[![Watch the Diffusion Studio plugin launch video](./images/launch-demo.jpg)](./videos/Diffusion-Studio-Plugin-Launch-v2.mp4?raw=1)
+https://github.com/user-attachments/assets/bfd0a3f8-aef8-49a7-bf9a-553e3071cd2b
 
-[Watch or download the video](./videos/Diffusion-Studio-Plugin-Launch-v2.mp4?raw=1) · 76 seconds · 1080p · 30 fps · music and sound effects.
+**1:12 · 1080p · 30 fps · music and sound effects.**
+
+[Download the MP4](https://github.com/Teseife/diffusion-studio-codex/raw/refs/heads/main/docs/videos/Diffusion-Studio-Plugin-Launch-v2.mp4)
 
 ## The workflow
 

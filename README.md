@@ -4,11 +4,11 @@ Create and edit video projects from Codex, preview your work, and continue editi
 
 ## Demo
 
-[![Watch the Diffusion Studio plugin demo](./docs/images/launch-demo.jpg)](./docs/videos/Diffusion-Studio-Plugin-Launch-v2.mp4?raw=1)
+https://github.com/user-attachments/assets/bfd0a3f8-aef8-49a7-bf9a-553e3071cd2b
 
-[Watch the 76-second video](./docs/videos/Diffusion-Studio-Plugin-Launch-v2.mp4?raw=1) — installation, a prompt in Codex, preview playback, and the editable Diffusion Studio timeline.
+**1:12 · 1080p · music and sound effects** — installation, a prompt in Codex, preview playback, and the editable Diffusion Studio timeline.
 
-See the [demo guide](./docs/demo.md) for the workflow shown in the video.
+[Download the MP4](https://github.com/Teseife/diffusion-studio-codex/raw/refs/heads/main/docs/videos/Diffusion-Studio-Plugin-Launch-v2.mp4) · [Demo guide](./docs/demo.md)
 
 ## What you can do
 
