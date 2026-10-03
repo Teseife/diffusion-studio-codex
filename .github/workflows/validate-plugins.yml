@@ -13,7 +13,6 @@ jobs:
   package:
     runs-on: ubuntu-latest
     env:
-      CLAUDE_CONFIG_DIR: ${{ runner.temp }}/diffusion-claude-config
       CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
     steps:
       - uses: actions/checkout@v4
@@ -23,6 +22,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Configure isolated Claude Code profile
+        run: echo "CLAUDE_CONFIG_DIR=$RUNNER_TEMP/diffusion-claude-config" >> "$GITHUB_ENV"
       - name: Test shared package and read-only diagnostic
         run: python3 -m unittest discover -s tests -v
       - name: Install Claude Code validator
