@@ -63,7 +63,7 @@ class MCPClient:
         result = self.send("initialize", {
             "protocolVersion": "2025-03-26",
             "capabilities": {},
-            "clientInfo": {"name": "diffusion-studio-doctor", "version": "0.1.2"},
+            "clientInfo": {"name": "diffusion-studio-doctor", "version": "0.1.3"},
         })
         self.headers["Mcp-Protocol-Version"] = result["protocolVersion"]
         self.send("notifications/initialized", notification=True)
