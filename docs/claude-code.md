@@ -42,7 +42,7 @@ You can also ask Claude in ordinary language to edit footage, add captions, or c
 ```sh
 git clone https://github.com/Teseife/diffusion-studio-codex.git
 cd diffusion-studio-codex
-claude plugin marketplace add .
+claude plugin marketplace add "$PWD"
 claude plugin install diffusion-studio@diffusion-studio-community
 claude
 ```

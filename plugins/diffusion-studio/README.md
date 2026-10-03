@@ -27,7 +27,7 @@ Start a new Codex chat after installation so it can load the plugin's tools and 
 From the repository root:
 
 ```sh
-claude plugin marketplace add .
+claude plugin marketplace add "$PWD"
 claude plugin install diffusion-studio@diffusion-studio-community
 ```
 

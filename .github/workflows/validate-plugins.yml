@@ -35,7 +35,7 @@ jobs:
       - name: Install plugin in a fresh Claude Code profile
         run: |
           mkdir -p "$CLAUDE_CONFIG_DIR"
-          claude plugin marketplace add .
+          claude plugin marketplace add "$GITHUB_WORKSPACE"
           claude plugin install diffusion-studio@diffusion-studio-community --json
           claude plugin list --json > "${{ runner.temp }}/diffusion-installed.json"
           python3 - "${{ runner.temp }}/diffusion-installed.json" <<'PY'
