@@ -1,6 +1,6 @@
-# Diffusion Studio for Codex
+# Diffusion Studio for Codex and Claude Code
 
-Create and edit video projects from Codex, preview your work, and continue editing in Diffusion Studio.
+Create and edit video projects from Codex or Claude Code, preview your work, and continue editing in Diffusion Studio.
 
 ## Demo
 
@@ -20,13 +20,13 @@ https://github.com/user-attachments/assets/bfd0a3f8-aef8-49a7-bf9a-553e3071cd2b
 
 ## Before you start
 
-- Install a local [Codex client](https://developers.openai.com/codex/cli) with plugin support and terminal/file access.
+- Install a local [Codex client](https://developers.openai.com/codex/cli) or [Claude Code](https://code.claude.com/docs/en/overview) with plugin support and terminal/file access. Sign in to your chosen client for chat.
 - Install and open [Diffusion Studio](https://www.diffusion.studio/download) on the same computer.
 - In Diffusion Studio, go to **Settings → MCP & CLI** and install `dapi` for terminal workflows.
 
-While this repository is private, your GitHub account needs repository access to install it.
+The repository is public. The editor and your chosen client run on the same computer.
 
-## Install
+## Install in Codex
 
 1. Keep Diffusion Studio open and make sure `codex` is available in your terminal.
 2. Clone the repository, register its marketplace, and install the plugin:
@@ -45,7 +45,7 @@ Keep the cloned folder in place: Codex uses it as the local marketplace source. 
 <details>
 <summary>Alternative: install directly from GitHub</summary>
 
-With authenticated Git access, you can register the GitHub marketplace without a manual clone:
+You can register the public GitHub marketplace without a manual clone:
 
 ```sh
 codex plugin marketplace add Teseife/diffusion-studio-codex --ref main
@@ -74,9 +74,27 @@ Start a new chat after installation to load the plugin's tools.
 
 </details>
 
+## Install in Claude Code
+
+Keep Diffusion Studio open, then run:
+
+```sh
+claude plugin marketplace add Teseife/diffusion-studio-codex
+claude plugin install diffusion-studio@diffusion-studio-community
+claude
+```
+
+In the new session, check `/plugin` for the enabled plugin and `/mcp` for `plugin:diffusion-studio:diffusion-studio`. Ask Claude to check your connection, then try:
+
+```text
+/diffusion-studio:diffusion-edit Create a five-second title card in a new project that says "Made with Diffusion Studio." Show me a preview.
+```
+
+The same skill also works with ordinary-language requests. See the [Claude Code guide](./docs/claude-code.md) for local-clone and agent-assisted installation, updates, and troubleshooting.
+
 ## Make your first video
 
-First, ask Codex:
+First, ask your chosen client:
 
 > Check my Diffusion Studio connection and explain what I can do with it.
 
@@ -84,7 +102,7 @@ Then try the prompt from the demo:
 
 > Create a short animated video showcasing this plugin's capabilities: create and edit video, add captions, preview, and export. Use kinetic typography and show me a preview.
 
-Review the preview, ask for changes, and open the project in Diffusion Studio to work with its canvas and timeline. When you're happy with the result, ask Codex to export the video.
+Review the preview, ask for changes, and open the project in Diffusion Studio to work with its canvas and timeline. When you're happy with the result, ask your client to export the video.
 
 ## More example prompts
 
@@ -97,6 +115,17 @@ Review the preview, ask for changes, and open the project in Diffusion Studio to
 > Export the current composition as a 1080p MP4.
 
 ## Update
+
+For Claude Code, run:
+
+```sh
+claude plugin marketplace update diffusion-studio-community
+claude plugin update diffusion-studio@diffusion-studio-community
+```
+
+If you installed from a local clone, first pull the latest changes. Start a new Claude Code session after updating.
+
+For Codex:
 
 For the local clone installation, run these commands inside the cloned repository:
 
@@ -116,6 +145,8 @@ Start a new Codex chat after updating.
 
 ## Troubleshooting
 
+For Claude Code plugin/session issues, see the [Claude Code troubleshooting guide](./docs/claude-code.md#troubleshooting). The diagnostic below works for either client.
+
 **Plugin missing?** Check the installation:
 
 ```sh
@@ -132,14 +163,14 @@ python3 plugins/diffusion-studio/scripts/doctor.py
 
 A ready connection reports `mcpReady: true`.
 
-**Clone or download fails?** Sign in to GitHub with an account that has repository access. You can also download the repository ZIP while signed in, extract it, and run the two `codex plugin` install commands from that folder. Keep the extracted folder in place; download a fresh copy when updating a ZIP installation.
+**Clone or download fails?** Check the repository URL and Git/network access. The repository is public. You can also download and extract its ZIP, then register that folder as the marketplace in your chosen client. Keep the extracted folder in place; download a fresh copy when updating a ZIP installation.
 
 **Duplicate Diffusion Studio entries?** If you also have the personal `diffusion-studio-local` version installed, enable one copy at a time.
 
 ## Details and clarifications
 
-- This is an independent community plugin, unaffiliated with Diffusion Studio or OpenAI. It isn't listed in the OpenAI public plugin directory.
-- Codex connects to Diffusion Studio's local MCP server at `http://127.0.0.1:3274/mcp`. Use local Codex execution on the computer running the editor; cloud execution cannot reach that local address.
+- This is an independent community plugin, unaffiliated with Diffusion Studio, OpenAI, or Anthropic. It is distributed through this GitHub marketplace, not an official vendor directory.
+- Codex and Claude Code connect to Diffusion Studio's local MCP server at `http://127.0.0.1:3274/mcp`. Run your client locally on the computer running the editor; cloud execution cannot reach that local address.
 - macOS has been tested. Windows support has not been verified. Optional generation and analysis features use the services configured in Diffusion Studio.
 - The demo combines recreated GitHub, terminal, and Codex interactions with real Diffusion Studio project output and an editor capture.
 - Plugin code and the independent plugin icon are [MIT licensed](./LICENSE). Diffusion Studio is a separate dependency with its own terms; third-party branding in the demo and screenshots is not covered by this project's MIT license.

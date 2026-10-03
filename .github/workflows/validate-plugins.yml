@@ -1,0 +1,54 @@
+name: Validate plugins
+
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    env:
+      CLAUDE_CONFIG_DIR: ${{ runner.temp }}/diffusion-claude-config
+      CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test shared package and read-only diagnostic
+        run: python3 -m unittest discover -s tests -v
+      - name: Install Claude Code validator
+        run: npm install --global @anthropic-ai/claude-code@2.1.284
+      - name: Validate marketplace and plugin with Claude Code
+        run: |
+          claude plugin validate . --strict
+          claude plugin validate ./plugins/diffusion-studio --strict
+      - name: Install plugin in a fresh Claude Code profile
+        run: |
+          mkdir -p "$CLAUDE_CONFIG_DIR"
+          claude plugin marketplace add .
+          claude plugin install diffusion-studio@diffusion-studio-community --json
+          claude plugin list --json > "${{ runner.temp }}/diffusion-installed.json"
+          python3 - "${{ runner.temp }}/diffusion-installed.json" <<'PY'
+          import json
+          from pathlib import Path
+          import sys
+          installed = json.loads(Path(sys.argv[1]).read_text())
+          plugin = next(p for p in installed if p["id"] == "diffusion-studio@diffusion-studio-community")
+          assert plugin["enabled"]
+          expected = json.loads(Path("plugins/diffusion-studio/.claude-plugin/plugin.json").read_text())
+          assert plugin["version"] == expected["version"]
+          assert plugin["mcpServers"]["diffusion-studio"]["type"] == "http"
+          assert plugin["mcpServers"]["diffusion-studio"]["url"] == "http://127.0.0.1:3274/mcp"
+          assert (Path(plugin["installPath"]) / "skills/diffusion-edit/SKILL.md").is_file()
+          print("Installed package, skill and MCP configuration verified.")
+          PY
+          claude plugin details diffusion-studio@diffusion-studio-community

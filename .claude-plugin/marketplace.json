@@ -1,0 +1,17 @@
+{
+  "name": "diffusion-studio-community",
+  "owner": {
+    "name": "Thomas Seife"
+  },
+  "metadata": {
+    "description": "Independent plugins for local video editing with Diffusion Studio.",
+    "version": "0.1.3"
+  },
+  "plugins": [
+    {
+      "name": "diffusion-studio",
+      "source": "./plugins/diffusion-studio",
+      "description": "Create, edit, inspect, and preview local video projects with Diffusion Studio."
+    }
+  ]
+}
